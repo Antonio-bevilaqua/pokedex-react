@@ -146,20 +146,7 @@ body {
   flex-wrap: wrap;
   height: calc(100% - 70px);
   overflow-y: auto;
-  padding: 20px 30px;
-}
-
-.pokemonList:after {
-  content: "";
-  position: absolute;
-  display: flex;
-  z-index: 10;
-  bottom: 0;
-  left: 0;
-  pointer-events: none;
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, .5) 90%);
-  width: 100%;
-  height: 7rem;
+  padding: 10px 30px;
 }
 
 .pokemon-container {
@@ -174,7 +161,7 @@ body {
 }
 
 .pokemonList .pokemon-container {
-  margin-top: 1rem;
+  margin-top: 20px;
 }
 
 .pokemonList .pokemon-container:first-child, .pokemonList .pokemon-container:nth-child(2) {
