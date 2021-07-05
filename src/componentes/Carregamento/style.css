@@ -1,0 +1,21 @@
+.full-loader {
+    width:100%;
+    min-height: 100%;
+    display:flex;
+    background: white;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    position: fixed;
+    top:0px;
+    left:0px;
+    z-index:9999999;
+    transition: all 1s ease-in-out;
+    opacity: 0;
+}
+
+.full-loader[loading="true"] {
+    opacity: 1;
+    transition: all 1s ease-in-out;
+}
+
