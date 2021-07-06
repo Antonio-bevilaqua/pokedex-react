@@ -1,11 +1,11 @@
 import React from 'react'
-import Pokemon from '../Pokemon/'
+import Pokemon from '../Pokemon'
 import Pokeloader from './Pokeloader.js'
-import scrollTracker from '../../scripts/scrollTracker'
-import findLastTwoPokemonCardProperties from '../../scripts/pokemons/card/findLastTwoPokemonCardProperties'
+import scrollTracker from '../../../scripts/scrollTracker'
+import findLastTwoPokemonCardProperties from '../../../scripts/pokemons/card/findLastTwoPokemonCardProperties'
 import { useState } from 'react';
 
-function PokemonList({ pokemons, pokeClick, opacity, fetchNewPage }) {
+function PokemonList({ pokemons, pokeClick, opacity, fetchNewPage, setListscroll }) {
     //pokemon bottom list loader
     const [isLoading, setIsLoading] = useState('false')
     const [scrollPos, setScrollPos] = useState(0)
@@ -15,6 +15,7 @@ function PokemonList({ pokemons, pokeClick, opacity, fetchNewPage }) {
 
     //verificando o scroll da lista
     const handleScroll = async (event) => {
+        console.log('handle')
         const target = event.target;
         const actualScrollPosition = scrollTracker(event)
         setScrollPos(actualScrollPosition)
@@ -23,7 +24,7 @@ function PokemonList({ pokemons, pokeClick, opacity, fetchNewPage }) {
             await fetchNewPage()
             setIsLoading('false')
         }
-
+        setListscroll(event.target.scrollTop)
         scrollList(actualScrollPosition)
     }
 
