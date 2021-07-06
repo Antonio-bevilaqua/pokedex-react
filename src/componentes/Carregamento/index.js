@@ -1,14 +1,14 @@
 import "./style.css";
-import charizard from '../../imagens/charizard-logo.gif';
+import pokemongif from '../../imagens/pagepokemongif.gif';
 
 
-function Carregamento({loader, display}) {
+function Carregamento({ loader, display }) {
   return (
     <div className="full-loader" loading={loader} style={{ display: display }} >
-      <img src={charizard} alt="charizard_logo" />
       <span className="text-loading">
         Carregando...
       </span>
+      <img src={pokemongif} alt="pokemongif" />
     </div>
   )
 }

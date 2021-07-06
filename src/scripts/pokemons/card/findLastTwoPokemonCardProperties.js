@@ -5,7 +5,7 @@ function findLastTwoPokemonCardProperties(scrollPos) {
     let lastPos = 0
     let actualOpacity = 1
 
-    const {cardsAppearing, cardOpacity} = getPokemonCardOpacity(scrollPos, cardHeight)
+    const {cardsAppearing, cardOpacity} = getPokemonCardOpacity(correctScrollPos, cardHeight)
     
     let lastPosIndex = cardsAppearing
     lastPosIndex *= 2; //2 cards por linha

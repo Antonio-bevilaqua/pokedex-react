@@ -16,8 +16,8 @@ function About({ isShowing, pokemon }) {
         const eggGroups = pokemon.pokemonSpecies.egg_groups[0].name.charAt(0).toUpperCase() + pokemon.pokemonSpecies.egg_groups[0].name.slice(1);
 
         return (
-            <div className="container-details" style={{ opacity: (isShowing) ? 1 : 0 }}>
-                <div class="details-row">
+            <div className="container-details" isShowing={{ opacity: (isShowing) ? 1 : 0 }}>
+                <div className="details-row">
                     <div className="details-description">
                         Espécie
                     </div>
@@ -25,7 +25,7 @@ function About({ isShowing, pokemon }) {
                         {specie}
                     </div>
                 </div>
-                <div class="details-row">
+                <div className="details-row">
                     <div className="details-description">
                         Altura
                     </div>
@@ -33,7 +33,7 @@ function About({ isShowing, pokemon }) {
                         {height} m
                     </div>
                 </div>
-                <div class="details-row">
+                <div className="details-row">
                     <div className="details-description">
                         Peso
                     </div>
@@ -41,7 +41,7 @@ function About({ isShowing, pokemon }) {
                         {weight} KG
                     </div>
                 </div>
-                <div class="details-row">
+                <div className="details-row">
                     <div className="details-description">
                         Habilidades
                     </div>
@@ -52,13 +52,13 @@ function About({ isShowing, pokemon }) {
                 <div className="details-bottom">
                     <h4>Reprodução</h4>
                 </div>
-                <div class="details-row">
+                <div className="details-row">
                     <div className="details-description">
                         Gênero
                     </div>
                     <Gender percentageFemale={percentageFemale} percentageMale={percentageMale} />
                 </div>
-                <div class="details-row">
+                <div className="details-row">
                     <div className="details-description">
                         Grupos de Ovos
                     </div>
@@ -66,7 +66,7 @@ function About({ isShowing, pokemon }) {
                         {eggGroups}
                     </div>
                 </div>
-                <div class="details-row">
+                <div className="details-row">
                     <div className="details-description">
                         Ciclo de Ovo
                     </div>

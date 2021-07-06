@@ -1,4 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
+@font-face {
+  font-family: 'Pokemon';
+  src: url('./fonts/Pokemon\ Solid.ttf') format('truetype')
+}
+
+@font-face {
+  font-family: 'PokemonHollow';
+  src: url('./fonts/Pokemon\ Hollow.ttf') format('truetype')
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -305,10 +316,12 @@ body {
 }
 
 .poke-name h4 {
+  font-family: 'PokemonHollow';
   padding: .5rem 1rem 0rem 1rem;
   text-transform: capitalize;
   font-size: 1.2rem;
   font-weight: 800;
+  line-height: 1.7rem;
 }
 
 .pokemon-species {

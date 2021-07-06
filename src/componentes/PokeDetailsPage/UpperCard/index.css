@@ -110,34 +110,64 @@
     border-bottom: 2px solid;
 }
 
-.bottom-card .container-details {
-    position: absolute;
-    top: 7rem;
+.bottom-card .bottom-scroll-list {
+    display:flex;
+    padding-top: 2rem;
+    width: 400%;
     transition: all .4s ease-in-out;
-    width: 100%;
 }
 
-.bottom-card .details-row{
+.bottom-card .container-details {
+    position: relative;
+    transition: all .4s ease-in-out;
+    width: calc(100% - 60px);
+}
+
+.bottom-card .details-row {
     display: flex;
     width: 100%;
     align-items: center;
     margin-bottom: .3rem;
 }
 
-.bottom-card .details-row .details-description{
+.bottom-card .details-row .details-description {
     opacity: .7;
     font-size: .8rem;
+    text-transform: capitalize;
 }
 
-.bottom-card .details-row .details-value{
+.bottom-card .details-row .details-value {
     position: absolute;
-    left: 40%;
+    left: 50%;
     text-align: left;
     font-weight: bolder;
     font-size: .8rem;
+    width: 50%;
 }
 
-.bottom-card .details-bottom{
+.bottom-card .details-bottom {
     margin-top: 1rem;
     margin-bottom: 1rem;
+}
+
+.bottom-card .barraStatus {
+    position: absolute;
+    left: 30%;
+    top: 40%;
+    width: 70%;
+    height: 4px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.bottom-card .barraCheia {
+    position: relative;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    max-width: 0%;
+    background-color: #520404;
+    border-radius: 10px;
+    transition: all .4s;
 }
