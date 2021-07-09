@@ -3,29 +3,41 @@ import Pokemon from '../Pokemon'
 import Pokeloader from './Pokeloader.js'
 import scrollTracker from '../../../scripts/scrollTracker'
 import findLastTwoPokemonCardProperties from '../../../scripts/pokemons/card/findLastTwoPokemonCardProperties'
-import { useState, useEffect } from 'react';
+import { PokemonListContext } from '../../../context/PokeListContext.js'
+import { useState, useEffect, useContext, useRef, createRef } from 'react';
 
-function PokemonList({ pokemons, pokeClick, opacity, fetchNewPage, setListscroll }) {
+function PokemonList() {
     //pokemon bottom list loader
     const [isLoading, setIsLoading] = useState('false')
-    const [scrollPos, setScrollPos] = useState(0)
     const [firstIndex, setFirstIndex] = useState(-1)
     const [secondIndex, setSecondIndex] = useState(-1)
     const [actualOpacity, setActualOpacity] = useState(1)
-    const [isInitialMount, useRef] = useState(true)
+    const [initialScroll, setInitialScroll] = useState(true)
+    const { pokemons, setListScroll, fetchNewPage, opacity } = useContext(PokemonListContext)
+    const listRef = useRef([])
+
+    //recebendo a lista de pokemons da API
+    useEffect(() => {
+        if (initialScroll && pokemons.length > 0) {
+            scrollList(0)
+            setInitialScroll(false)
+            listRef.current = listRef.current.slice(0, pokemons.length);
+        }
+    }, [pokemons, initialScroll])
 
     //verificando o scroll da lista
     const handleScroll = async (event) => {
-        console.log('handle')
         const target = event.target;
         const actualScrollPosition = scrollTracker(event)
-        setScrollPos(actualScrollPosition)
-        if (actualScrollPosition >= target.scrollHeight - 100) {
+        if (actualScrollPosition >= target.scrollHeight - 250) {
+            const lastIndex = listRef.current.length
             setIsLoading('true')
             await fetchNewPage()
             setIsLoading('false')
+            const nextIndex = lastIndex + 1
+            listRef.current[nextIndex].scrollIntoView()
         }
-        setListscroll(event.target.scrollTop)
+        setListScroll(event.target.scrollTop)
         scrollList(actualScrollPosition)
     }
 
@@ -37,23 +49,21 @@ function PokemonList({ pokemons, pokeClick, opacity, fetchNewPage, setListscroll
         setActualOpacity(actualOpacity)
     }
 
+    console.log(listRef)
 
     return (
         <div id="pokemonList" className="pokemonList" onScroll={handleScroll} >
             {pokemons.map((pokemon, index) => (
                 <Pokemon pokemon={pokemon}
-                    scrollList={scrollList}
-                    pokeClick={pokeClick}
+                    listRef={listRef}
                     key={index}
                     index={index}
                     pokeId={pokemon.id}
                     firstIndex={firstIndex}
                     secondIndex={secondIndex}
                     pokeOpacity={opacity}
-                    actualOpacity={actualOpacity}
-                    scrollPos={scrollPos} />
+                    actualOpacity={actualOpacity} />
             ))}
-            <Pokeloader isLoading={isLoading} />
         </div>
     )
 }

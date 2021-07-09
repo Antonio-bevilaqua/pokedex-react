@@ -1,19 +1,14 @@
 import React from 'react'
 import pokeballBackground from '../../../imagens/pokeballBackground.png'
-import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 
-function Pokemon({ pokemon, index, actualOpacity, firstIndex, secondIndex, pokeId, scrollList }) {
-    //recebendo a lista de pokemons da API
-    useEffect(() => {
-        scrollList(0)
-    }, [])
+function Pokemon({ pokemon, index, actualOpacity, firstIndex, secondIndex, pokeId, listRef }) {
 
 
     return (
         <Link to={`/pokemon/${pokeId}`} >
-            <div id={`pokemon-${index}`} className="pokemon-container" style={{ opacity: (firstIndex === index || secondIndex === index) ? actualOpacity : 1 }}
+            <div ref={el => listRef.current[index] = el} id={`pokemon-${index}`} className="pokemon-container" style={{ opacity: (firstIndex === index || secondIndex === index) ? actualOpacity : 1 }}
                 background={pokemon.pokemonSpecies.color.name} >
                 <div className="details">
                     <div className="poke-name">

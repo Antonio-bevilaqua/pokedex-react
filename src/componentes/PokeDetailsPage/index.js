@@ -1,13 +1,15 @@
 import React from 'react'
-import './index.css'
 import Carregamento from "../Carregamento"
 import UpperCard from './UpperCard'
 import BottomCard from './BottomCard'
 import backgroundDetailsWhite from '../../imagens/backgroundDetailsWhite.png'
 import fetchSinglePokemon from '../../scripts/pokemons/fetches/singlePokemon'
-import { useState, useEffect } from 'react';
+import fetchPokemonTypeAttribute from '../../scripts/pokemons/fetches/pokemonTypeAttributes'
+import {PokemonListContext} from '../../context/PokeListContext.js'
+import { useState, useEffect, useContext } from 'react';
 
-function PokeDetailsPage({ match, pokemons }) {
+function PokeDetailsPage({ match }) {
+    const {pokemons} = useContext(PokemonListContext)
     const [pokemon, setPokemon] = useState({
         'id': 0,
         'pokemonSpecies': {
@@ -18,8 +20,17 @@ function PokeDetailsPage({ match, pokemons }) {
     })
 
     //default page loader
-    const [loader, setLoader] = useState('true')
-    const [loaderDisplay, setLoaderDisplay] = useState("flex")
+    const [translateY, setTranslateY] = useState('0')
+    const [bottomOpacity, setBottomOpacity] = useState(0.5)
+    const [pageLoaded, setPageLoaded] = useState(false)
+
+    const selectBottom = () => {
+        setTranslateY('-15vh')
+    }
+
+    const selectTop = () => {
+        setTranslateY('0')
+    }
 
     const index = match.params.id - 1
 
@@ -27,26 +38,25 @@ function PokeDetailsPage({ match, pokemons }) {
     useEffect(() => {
         const getPokemon = async () => {
             if (pokemons.length > 0) {
-                setPokemon(pokemons[index])
+                const actualPokemon = await fetchPokemonTypeAttribute(pokemons[index])
+                setPokemon(actualPokemon)
             } else {
-                const actualPokemon = await fetchSinglePokemon("https://pokeapi.co/api/v2/pokemon/" + match.params.id)
+                const pokemonWithoutAttributes = await fetchSinglePokemon("https://pokeapi.co/api/v2/pokemon/" + match.params.id)
+                const actualPokemon = await fetchPokemonTypeAttribute(pokemonWithoutAttributes)
                 setPokemon(actualPokemon)
             }
-
-            //retirando o loader inicial do APP
-            setLoader('false');
-            setTimeout(function () { setLoaderDisplay("none"); }, 1000)
+            setPageLoaded(true)
         }
 
         getPokemon()
-    }, [])
+    }, [index, match.params.id, pokemons])
 
     return (
         <div className="pokedetails-page" background={pokemon.pokemonSpecies.color.name}>
-            <Carregamento loader={loader} display={loaderDisplay} />
+            <Carregamento pageLoaded={pageLoaded} />
             <img src={backgroundDetailsWhite} alt="backgroundWhite" className="backgroundDetails" />
-            <UpperCard pokemon={pokemon} />
-            <BottomCard pokemon={pokemon} />
+            <UpperCard pokemon={pokemon} translateY={translateY} />
+            <BottomCard translateY={translateY} pokemon={pokemon} selectBottom={selectBottom} selectTop={selectTop} bottomOpacity={bottomOpacity} setBottomOpacity={setBottomOpacity}  />
         </div>
     )
 }

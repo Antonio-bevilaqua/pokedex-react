@@ -2,8 +2,6 @@ import {getPokemonCardProperties, getPokemonCardOpacity} from "./getPokemonCardP
 
 function findLastTwoPokemonCardProperties(scrollPos) {
     const {cardHeight, correctScrollPos} = getPokemonCardProperties(scrollPos);
-    let lastPos = 0
-    let actualOpacity = 1
 
     const {cardsAppearing, cardOpacity} = getPokemonCardOpacity(correctScrollPos, cardHeight)
     
