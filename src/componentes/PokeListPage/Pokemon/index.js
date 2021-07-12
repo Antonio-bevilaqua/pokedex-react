@@ -3,12 +3,12 @@ import pokeballBackground from '../../../imagens/pokeballBackground.png'
 import { Link } from 'react-router-dom'
 
 
-function Pokemon({ pokemon, index, actualOpacity, firstIndex, secondIndex, pokeId, listRef }) {
+function Pokemon({ pokemon, index, actualOpacity, firstIndex, secondIndex, pokeId, pokemonsRef }) {
 
 
     return (
         <Link to={`/pokemon/${pokeId}`} >
-            <div ref={el => listRef.current[index] = el} id={`pokemon-${index}`} className="pokemon-container" style={{ opacity: (firstIndex === index || secondIndex === index) ? actualOpacity : 1 }}
+            <div ref={el => pokemonsRef.current[index] = el} id={`pokemon-${index}`} className="pokemon-container" style={{ opacity: (firstIndex === index || secondIndex === index) ? actualOpacity : 1 }}
                 background={pokemon.pokemonSpecies.color.name} >
                 <div className="details">
                     <div className="poke-name">

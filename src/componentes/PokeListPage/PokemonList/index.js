@@ -14,14 +14,15 @@ function PokemonList() {
     const [actualOpacity, setActualOpacity] = useState(1)
     const [initialScroll, setInitialScroll] = useState(true)
     const { pokemons, setListScroll, fetchNewPage, opacity } = useContext(PokemonListContext)
-    const listRef = useRef([])
+    const pokemonsRef = useRef([])
+    const listRef = useRef(null)
 
     //recebendo a lista de pokemons da API
     useEffect(() => {
         if (initialScroll && pokemons.length > 0) {
             scrollList(0)
             setInitialScroll(false)
-            listRef.current = listRef.current.slice(0, pokemons.length);
+            pokemonsRef.current = pokemonsRef.current.slice(0, pokemons.length);
         }
     }, [pokemons, initialScroll])
 
@@ -30,12 +31,13 @@ function PokemonList() {
         const target = event.target;
         const actualScrollPosition = scrollTracker(event)
         if (actualScrollPosition >= target.scrollHeight - 250) {
-            const lastIndex = listRef.current.length
+            const lastIndex = pokemonsRef.current.length
             setIsLoading('true')
             await fetchNewPage()
             setIsLoading('false')
             const nextIndex = lastIndex + 1
-            listRef.current[nextIndex].scrollIntoView()
+            const scrollNext = pokemonsRef.current[nextIndex].offsetTop - listRef.current.clientHeight
+            listRef.current.scrollTop = scrollNext
         }
         setListScroll(event.target.scrollTop)
         scrollList(actualScrollPosition)
@@ -49,13 +51,11 @@ function PokemonList() {
         setActualOpacity(actualOpacity)
     }
 
-    console.log(listRef)
-
     return (
         <div id="pokemonList" className="pokemonList" onScroll={handleScroll} >
             {pokemons.map((pokemon, index) => (
                 <Pokemon pokemon={pokemon}
-                    listRef={listRef}
+                    pokemonsRef={pokemonsRef}
                     key={index}
                     index={index}
                     pokeId={pokemon.id}
