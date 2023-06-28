@@ -1,0 +1,42 @@
+.full-loader {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    background: white;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 9999999;
+    transition: all 1s ease-in-out;
+    opacity: 0;
+}
+
+.full-loader[loading="true"] {
+    opacity: 1;
+    transition: all 1s ease-in-out;
+}
+
+@keyframes textSize {
+    0% {
+        font-size: 2rem;
+    }
+    50% {
+        font-size: 1.5rem;
+    }
+    100% {
+        font-size: 2rem;
+    }
+}
+
+.full-loader .text-loading {
+    font-family: 'PokemonHollow';
+    font-size: 2.5rem;
+    color: #852101;
+    font-weight: bold;
+    animation-name: textSize;
+    animation-duration: 3s;
+    animation-iteration-count:infinite;
+}
